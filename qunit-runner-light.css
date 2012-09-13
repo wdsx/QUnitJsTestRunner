@@ -1,0 +1,23 @@
+body {
+	background-color: #F5F5F5;
+	color: #585858;
+	font-family: 'DejaVu Sans Mono', monospace;
+	font-size: 14px;
+	margin-top:20px;
+}
+h1 {
+	font-size: 14px;
+	font-weight: normal;
+}
+.hide {
+	display: none;
+}
+.ok, .ko {
+	height:30px;display:visible;
+}
+.ok {
+	background-color: #55aa55;
+}
+.ko {
+	background-color: #AB2525;
+}
