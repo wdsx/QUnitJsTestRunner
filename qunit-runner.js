@@ -10,7 +10,13 @@
 		    TestName: "",
 		    Tests: []
 		},
-		totalTests = 0;
+		totalTests = 0,
+        testsAreRunning = false;
+
+    QUnit.begin(function () {
+        testsAreRunning = true;
+        testResult.Reset();
+    });
 
     QUnit.testStart(function (details) {
         test = {};
@@ -19,7 +25,7 @@
         totalTests++;
     });
 
-    QUnit.testStart(function (details) {
+    QUnit.testDone(function (details) {
         if (!details.result) {
             testResult.Tests.push(test);
         }
@@ -34,12 +40,17 @@
         testResult.Failed = details.failed;
         testResult.Passed = details.passed;
         testResult.RunTime = details.runtime;
-        renderResults();
-        testResult.Reset();
+
+        if (testResult.Tests[0]) {
+            renderResults();
+        }
+
+        testsAreRunning = false;
     });
 
     function getOutputDiv() {
         var outputDiv = document.getElementById("output");
+
         if (!outputDiv) {
             outputDiv = document.createElement("div");
             outputDiv.id = "output";
@@ -47,6 +58,7 @@
         } else {
             outputDiv.innerHTML = "";
         }
+
         return outputDiv;
     }
 
@@ -113,37 +125,44 @@
     }
 
     setInterval(function () {
-        var scripts = document.getElementsByTagName('head')[0].getElementsByTagName('script'),
+
+        if (!testsAreRunning) {
+
+            window.QUnit.init();
+            //window.QUnit.reset();
+            window.QUnit.load();
+
+            var scripts = document.getElementsByTagName('head')[0].getElementsByTagName('script'),
 		   		i = scripts.length,
 		   		toReload = [],
 		   		ticks = new Date().getTime(),
 		   		head = document.getElementsByTagName('head')[0],
                 loadFiles = true;
 
-        while (i--) {
-            if (loadFiles) {
-                // when we hit the qunit-runner, do not re-load any more files
-                loadFiles = (scripts[i].src.indexOf("qunit-runner.js") == -1)
+            while (i--) {
+                // testsAreRunning - no need on re-loading the scripts if we are already mid-test
+                if (loadFiles) {
+                    // when we hit the qunit-runner, do not re-load any more files
+                    loadFiles = (scripts[i].src.indexOf("qunit-runner.js") == -1)
 
-                if (!loadFiles)
-                    continue;
+                    if (!loadFiles)
+                        continue;
 
-                toReload.push(scripts[i].src.split("?")[0]);
-                scripts[i].parentNode.removeChild(scripts[i]);
+                    toReload.push(scripts[i].src.split("?")[0]);
+                    scripts[i].parentNode.removeChild(scripts[i]);
+                }
             }
+
+            i = toReload.length;
+
+            while (i--) {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = toReload[i] + "?t=" + ticks;
+                head.appendChild(script);
+            }
+
         }
-
-        i = toReload.length;
-
-        while (i--) {
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = toReload[i] + "?t=" + ticks;
-            head.appendChild(script);
-        }
-
-        window.QUnit.init();
-        window.QUnit.load();
     }, 1000); // default to reload every 1 second
 
 } ());
