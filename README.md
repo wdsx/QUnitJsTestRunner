@@ -7,3 +7,8 @@ It runs in the browser and will auto refresh your tests every 1 second (configur
 You can see a video of this being used here: https://vimeo.com/49378433
 
 For more information see: http://www.contentedcoder.com/2012/09/javascript-test-runner-for-qunit.html
+
+##Roadmap##
+
+* Support other browsers e.g. IE
+* Ensure working with the DOM is reliable
