@@ -99,9 +99,6 @@
                     }
 
                     innerLi.innerText = testIndex + ". " + jsMessage + "Actual: " + innerTest.actual + ", Expected: " + innerTest.expected + jsSource;
-
-                    //debug line
-                    innerLi.innerText = innerLi.innerText.replace("bradleybraithwaite", "username").replace("bradleybraithwaite", "username");
                 }
 
                 testIndex++;
