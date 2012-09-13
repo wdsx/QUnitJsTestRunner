@@ -3,3 +3,5 @@ A test runner for QUnit. It runs in the browser and will auto refresh your tests
 *NOTE:* This is written by me for me and in it's current state has some issues. It only works/has been testing in Chrome (my default browser) and is very experimental. I'm still making changes to this as it can sometimes be a little jumpy when there are lots of tests accessing DOM elements.
 
 You can see a video of this being used here: https://vimeo.com/49378433
+
+For more information see: http://www.contentedcoder.com/2012/09/javascript-test-runner-for-qunit.html
