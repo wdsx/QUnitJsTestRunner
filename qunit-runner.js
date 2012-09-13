@@ -140,8 +140,6 @@
             script.type = 'text/javascript';
             script.src = toReload[i] + "?t=" + ticks;
             head.appendChild(script);
-
-            console.log(toReload[i]);
         }
 
         window.QUnit.init();
