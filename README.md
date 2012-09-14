@@ -10,5 +10,8 @@ For more information see: http://www.contentedcoder.com/2012/09/javascript-test-
 
 ##Roadmap##
 
-* Support other browsers e.g. IE
+* Support other browsers e.g. IE *
 * Ensure working with the DOM is reliable
+
+
+* I have performed some basic testing and made some changes that make this more stable in IE.
