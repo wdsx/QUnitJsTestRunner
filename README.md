@@ -12,6 +12,7 @@ For more information see: http://www.contentedcoder.com/2012/09/javascript-test-
 
 * Support other browsers e.g. IE *
 * Ensure working with the DOM is reliable
+* Create version for BDD framework e.g. Jasmine
 
 
 \* I have performed some basic testing and made some changes that make this more stable in IE.
