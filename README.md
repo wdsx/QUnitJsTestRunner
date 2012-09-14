@@ -14,4 +14,4 @@ For more information see: http://www.contentedcoder.com/2012/09/javascript-test-
 * Ensure working with the DOM is reliable
 
 
-\\* I have performed some basic testing and made some changes that make this more stable in IE.
+\* I have performed some basic testing and made some changes that make this more stable in IE.
