@@ -129,38 +129,27 @@
         if (!testsAreRunning) {
 
             window.QUnit.init();
-            //window.QUnit.reset();
+	    //window.Qunit.reset();
             window.QUnit.load();
 
-            var scripts = document.getElementsByTagName('head')[0].getElementsByTagName('script'),
-		   		i = scripts.length,
+	    var scripts = document.getElementsByTagName('head')[0].getElementsByTagName('script'),
 		   		toReload = [],
 		   		ticks = new Date().getTime(),
-		   		head = document.getElementsByTagName('head')[0],
-                loadFiles = true;
-
-            while (i--) {
-                // testsAreRunning - no need on re-loading the scripts if we are already mid-test
-                if (loadFiles) {
-                    // when we hit the qunit-runner, do not re-load any more files
-                    loadFiles = (scripts[i].src.indexOf("qunit-runner.js") == -1)
-
-                    if (!loadFiles)
-                        continue;
-
-                    toReload.push(scripts[i].src.split("?")[0]);
-                    scripts[i].parentNode.removeChild(scripts[i]);
-                }
+		   		head = document.getElementsByTagName('head')[0];
+            
+            for(var j=0; j < scripts.length; j++) {
+            	if(scripts[j].getAttribute("data-reload") == "true") toReload.push(scripts[j]);
             }
-
-            i = toReload.length;
-
-            while (i--) {
+            
+            for(var j=0; j < toReload.length; j++) {
+            	head.removeChild(toReload[j]);
                 var script = document.createElement('script');
                 script.type = 'text/javascript';
-                script.src = toReload[i] + "?t=" + ticks;
+                script.src = toReload[j].src.split("?")[0] + "?t=" + ticks;
+                script.setAttribute("data-reload", "true");
                 head.appendChild(script);
             }
+
 
         }
     }, 1000); // default to reload every 1 second
